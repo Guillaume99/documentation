@@ -20,20 +20,22 @@ your nginx installation.
 
 ::
 
+  server_tokens off;
+  
   upstream php-handler {
       server 127.0.0.1:9000;
       #server unix:/var/run/php5-fpm.sock;
   }
 
   server {
-      listen 80;
+      listen 80 default_server;
       server_name cloud.example.com;
       # enforce https
       return 301 https://$server_name$request_uri;
   }
   
   server {
-      listen 443 ssl;
+      listen 443 default_server ssl http2;
       server_name cloud.example.com;
   
       ssl_certificate /etc/ssl/nginx/cloud.example.com.crt;
@@ -153,20 +155,22 @@ your nginx installation.
 
 ::
 
+  server_tokens off;
+  
   upstream php-handler {
       server 127.0.0.1:9000;
       #server unix:/var/run/php5-fpm.sock;
   }
   
   server {
-      listen 80;
+      listen 80 default_server;
       server_name cloud.example.com;
       # enforce https
       return 301 https://$server_name$request_uri;
   }
   
   server {
-      listen 443 ssl;
+      listen 443 default_server ssl http2;
       server_name cloud.example.com;
   
       ssl_certificate /etc/ssl/nginx/cloud.example.com.crt;
